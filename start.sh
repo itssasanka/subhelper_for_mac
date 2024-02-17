@@ -11,7 +11,9 @@ startHelper(){
 }
 
 promptForWatchPathAndStart(){
-    read -p "Enter parent path to scan or press ENTER to accept $HOME/Downloads " watchPath
+    echo "======================================================="
+    echo "${CYAN}Enter parent path to scan or press ENTER to accept $HOME/Downloads${NC}"
+    read watchPath
     watchPath=${watchPath:-$HOME/Downloads}
 
     if [ ! -d "$watchPath" ]; then
@@ -42,7 +44,7 @@ promptForInstallWatchexec(){
 
 mkdir -p temp/
 ## cleanup temp directory if needed
-temp_dirs_count=$(ls -d temp/* | wc -l)
+temp_dirs_count=$(ls -d temp/ | wc -l)
 if [ "$temp_dirs_count" -gt "30" ]; then
     echo "Info: Cleaning up temp directory.."
     rm -rf temp/**
