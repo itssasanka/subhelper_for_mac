@@ -40,8 +40,13 @@ promptForInstallWatchexec(){
     fi
 }
 
-## cleanup temp directory
-# find subhelper -type d | wc -l
+mkdir -p temp/
+## cleanup temp directory if needed
+temp_dirs_count=$(ls -d temp/* | wc -l)
+if [ "$temp_dirs_count" -gt "1" ]; then
+    echo "Info: Cleaning up temp directory.."
+    rm -rf temp/**
+fi
 
 
 if ! [ -x "$(command -v watchexec)" ]; then

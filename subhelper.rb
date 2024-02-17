@@ -17,7 +17,7 @@ target_locale = ENV["LANGUAGE"]
 RUN_ID = "#{SecureRandom.hex(9)}_subhelper"
 # We perform all operations and store 
 # intermediate files in each run's own tmp_dir
-TMP_DIR = File.join(__dir__, "subhelper", RUN_ID) 
+TMP_DIR = File.join(__dir__, "temp", RUN_ID) 
 @is_existing_srt = false
 
 TWO_HUNDRED_MB = 200*1000*1000
