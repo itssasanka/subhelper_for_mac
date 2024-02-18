@@ -13,12 +13,12 @@ require 'fileutils'
 LOGGER = Logger.new(STDOUT)
 created_path = ENV["WATCHEXEC_CREATED_PATH"]
 common_path = ENV["WATCHEXEC_COMMON_PATH"] 
-target_locale = ENV["LANGUAGE"]
+TARGET_LOCALE = ENV["LANGUAGE"]
 RUN_ID = "#{SecureRandom.hex(9)}_subhelper"
 # We perform all operations and store 
 # intermediate files in each run's own tmp_dir
 TMP_DIR = File.join(__dir__, "temp", RUN_ID) 
-@is_existing_srt = false
+@is_existing_file = false
 
 TWO_HUNDRED_MB = 200*1000*1000
 target_vid = nil # Target video file
@@ -27,7 +27,7 @@ vid_suffix = nil
 FileUtils.mkdir_p(TMP_DIR)
 LOGGER.info("===========================")
 LOGGER.info("           BEGIN           ")
-LOGGER.info(" Target Language: #{target_locale} ")
+LOGGER.info(" Target Language: #{TARGET_LOCALE} ")
 
 def do_exit()
     LOGGER.info("------- No action. -------")
@@ -35,10 +35,18 @@ def do_exit()
     exit(0)
 end
 
+def recursively_unzip_zips(dir)
+    zip_files = IO.popen("find '#{dir}' -name '*.zip'").map {|f| f.chomp }
+    zip_files.each do |z|
+        system("unzip -u '#{z}' -d '#{File.dirname(z)}'")
+    end
+end
+
 def find_and_extract_srt_file(dir)
     # Recursively find the srt file. If multiple are found, try the one with
     # the target locale in it (ENV["LANGUAGE"])
     LOGGER.info("Searching for srt within #{dir}/")
+    
     srt_files = IO.popen("find '#{dir}' -name '*.srt'").map {|f| f.chomp }
     identified_srt = nil
 
@@ -46,19 +54,20 @@ def find_and_extract_srt_file(dir)
         identified_srt = srt_files.first
     elsif (srt_files.size > 1)
         identified_srts = srt_files.select do |f|
-            f.downcase.include?(target_locale)
+            f.downcase.include?(TARGET_LOCALE)
         end
 
         if(identified_srts.size > 1)
-            LOGGER.info("Multiple target srt files found! unable to find the correct one")
+            LOGGER.warn("---> Error: Multiple target srt files found! unable to know the correct one")
             do_exit()
         else
             identified_srt = identified_srts.first
         end
 
         unless(identified_srt)
-            LOGGER.info("Multiple srt candidates found!")
+            LOGGER.warn("---> Error: Multiple srt candidates found:")
             LOGGER.info("Here they are:")
+            LOGGER.info("Subhelper would not know the correct one to use.")
             srt_files.each do |srtfile|
                 LOGGER.info(srtfile)
             end
@@ -69,7 +78,7 @@ def find_and_extract_srt_file(dir)
         do_exit()
     end
 
-    if(@is_existing_srt)
+    if(@is_existing_file)
         LOGGER.info("✔ Using existing srt file")    
     else
         LOGGER.info("✔ Using srt file: #{identified_srt}")
@@ -105,9 +114,10 @@ item_ext = File.extname(item_path)
 # an existing srt file, and then simulating the case where a 
 # new srt file got added by the user, thereby triggering
 # the normal `srt file addition` flow.
-@is_existing_srt = item_path.end_with?("untitled folder/")
+@is_existing_file = item_path.end_with?("untitled folder/")
 
-if(@is_existing_srt)
+if(@is_existing_file)
+    recursively_unzip_zips(base_dir)
     find_and_extract_srt_file(base_dir)
     
     tmp_srt_file = File.join(base_dir, "tmp_subhelper_target_file.srt")
@@ -145,7 +155,7 @@ if (item_ext == ".zip")
     LOGGER.info("Processing new zip file [#{item_name}] ..")
     handle_zip(item_path, base_dir)
 elsif (item_ext === ".srt")
-    srt_file_descriptor = @is_existing_srt ? "existing srt file" : "srt file [#{item_name}] .."
+    srt_file_descriptor = @is_existing_file ? "existing srt file" : "srt file [#{item_name}] .."
     LOGGER.info("Processing #{srt_file_descriptor}")
     find_and_extract_srt_file(base_dir)
 end
