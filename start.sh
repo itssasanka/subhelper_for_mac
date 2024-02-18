@@ -50,6 +50,11 @@ if [ "$temp_dirs_count" -gt "30" ]; then
     rm -rf temp/**
 fi
 
+if ! [ -x "$(command -v brew)" ]; then
+    echo "${RED}This program requires homebrew package manager.${NC}" >&2
+    echo "${RED}Please install it first - https://brew.sh/${NC}" >&2
+    exit
+fi
 
 if ! [ -x "$(command -v watchexec)" ]; then
     echo "${CYAN}Watchexec is not installed. Do you want to install it?${NC}" >&2
