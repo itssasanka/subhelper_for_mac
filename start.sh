@@ -25,7 +25,7 @@ promptForWatchPathAndStart(){
 }
 
 promptForInstallWatchexec(){
-    echo "Enter y/Y/n/N"
+    echo "Enter y/Y/n/N and press ENTER"
     read installWatchexec
     
     if [ "$installWatchexec" = "y" ] || [ "$installWatchexec" = "Y" ]; then
@@ -37,7 +37,7 @@ promptForInstallWatchexec(){
         echo "${YEL}Quitting program..${NC}"
         exit 1
     else
-        echo "${YEL}Invalid input. Please enter y/Y/n/N${NC}"
+        echo "${YEL}Invalid input. Please enter y/Y/n/N and press ENTER${NC}"
         promptForInstallWatchexec
     fi
 }
