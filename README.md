@@ -1,7 +1,7 @@
 ## Subhelper for Mac
 
 ### What is Subhelper?
-Subhelper is a w for Mac OS that will automatically find and rename subtitle files (.srt) to match with the video content (movies/documentaries/episodes, etc.) within a given directory.
+Subhelper is a small program for Mac OS that will automatically find and rename subtitle files (.srt) to match with the video content (movies/documentaries/episodes, etc.) within a given directory.
 
 
 ### Install and running subhelper
