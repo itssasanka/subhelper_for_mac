@@ -57,7 +57,7 @@ Let's look at the following use-cases:
   - automatically scan all subdirectories within the `citizen_kane_1941` directory, find the `english.srt` file, rename it to `citizen_kane_1941.srt` and put it alongside the `citizen_kane_1941.mp4` file.
 
 
-  Again, the `creation of untitled folder` is just a way to trigger `subhelper` when you know there are existing subtitles within a folder. I hope it is still acceptable since it only needs a quick keyboard combination of `Cmd+shift+N`. 
+  Again, the `creation of untitled folder` is just a way to trigger `subhelper` when you know there are existing subtitles within a folder. I hope it is still acceptable since it only needs a quick keyboard combination of `Cmd+shift+N`. Note that `subhelper` will automatically delete this `untitled folder` after running its operations, so please do not get confused over it!
 
 ### What Subhelper cannot do
 Suhelper cannot find or download `subtitle` files or any other content from the internet. It is just a tool for `organizing` subtitle files/content automatically. For subtitle content, it is up to you, the user, to find and download subtitle content from whatever sources that you may use (typically a website like https://opensubtitles.org for example).
