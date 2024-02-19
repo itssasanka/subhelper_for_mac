@@ -39,13 +39,22 @@ Let's look at the following use-cases:
 
 - `/Users/sasanka/Downloads/old_movies/The Terminator 1984 1080p/`
   - `Terminator_1984_DvdRip_1080.mp4`
-  - `Terminator_1984_subs.zip`
+  - `/subtitles/`
+    - `english/`
+      - `Terminator_1984_subs.zip`
 
-  As you can see above, there are already subtitles present, either in the form of `.srt` file, or within a compressed `zip` file.  
+- `/Users/sasanka/Downloads/old_movies/citizen_kane_1941/`
+  - `citizen_kane_1941.mp4`
+  - `/subs/`
+    - `free/`
+      - `english.srt`
+
+  As you can see above, there are already subtitles present, either in the form of `.srt` file, or within a compressed `zip` file. 
   In this case, I will start `subhelper` with `start.sh` and set the parent directory to `/Users/sasanka/Downloads/old_movies/`;  
-  Now, note that `subhelper` will not automatically perform irreversible operations without user consent, so I will `prompt` subhelper by `creating a new folder within each directory I'm interested in`, with a simple keyboard shortcut, which is `Cmd+Shift+N` and `not really do anything else`. This will "trigger" `subhelper` to scan within each directory I created the `untitled folder` in, and perform its duties, which are:
+  Now, note that `subhelper` will not automatically perform irreversible operations without user consent, so I will `prompt` subhelper by `creating a new folder within the directory I'm interested in`, with a simple keyboard shortcut, which is `Cmd+Shift+N` and `not really do anything else`. This will "trigger" `subhelper` to scan within the directory I created the `untitled folder` in, and perform its duties, which are:
   - automatically rename the `Eng_subs.srt` to `Memento_2000_Bluray.srt`
-  - automatically extract the `Terminator_1984_subs.zip`, find an `.srt` file within the extracted content, and rename it to `Terminator_1984_DvdRip_1080.srt`
+  - automatically scan all subdirectories within the `The Terminator 1984 1080p/` directory, find the `Terminator_1984_subs.zip`, extract it, find an `.srt` file within the extracted content, and rename it to `Terminator_1984_DvdRip_1080.srt`, and put it alongside the corresponding `Terminator_1984_DvdRip_1080.mp4` file.
+  - automatically scan all subdirectories within the `citizen_kane_1941` directory, find the `english.srt` file, rename it to `citizen_kane_1941.srt` and put it alongside the `citizen_kane_1941.mp4` file.
 
 
   Again, the `creation of untitled folder` is just a way to trigger `subhelper` when you know there are existing subtitles within a folder. I hope it is still acceptable since it only needs a quick keyboard combination of `Cmd+shift+N`. 
