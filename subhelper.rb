@@ -27,7 +27,6 @@ vid_suffix = nil
 FileUtils.mkdir_p(TMP_DIR)
 LOGGER.info("===========================")
 LOGGER.info("           BEGIN           ")
-LOGGER.info(" Target Language: #{TARGET_LOCALE} ")
 
 def do_exit()
     LOGGER.info("------- No action. -------")
@@ -66,8 +65,8 @@ def find_and_extract_srt_file(dir)
 
         unless(identified_srt)
             LOGGER.warn("---> Error: Multiple srt candidates found:")
-            LOGGER.info("Here they are:")
             LOGGER.info("Subhelper would not know the correct one to use.")
+            LOGGER.info("Here they are:")
             srt_files.each do |srtfile|
                 LOGGER.info(srtfile)
             end
@@ -123,6 +122,7 @@ if(@is_existing_file)
     tmp_srt_file = File.join(base_dir, "tmp_subhelper_target_file.srt")
     system("mv '#{TMP_DIR}/#{RUN_ID}.srt' '#{tmp_srt_file}'")
 
+    FileUtils.rm_rf(item_path)
     item_path = tmp_srt_file
     item_ext = ".srt"
 end

@@ -5,8 +5,13 @@ RED='\x1B[0;31m'
 NC='\x1B[0m' # No Color
 
 startHelper(){
-    echo "Starting Subhelper. Scan path: $1"
-    LANGUAGE=eng watchexec --on-busy-update=do-nothing -f '*untitled*' -f '*.srt' -f '*.zip' \
+    echo "${CYAN}Enter first 3 letters of your preferred subtitle language.${NC}"
+    echo "${CYAN}Or, press enter to accept 'eng', which is 'english'${NC}"
+    read locale
+    locale=${locale:-eng}
+
+    echo "Starting Subhelper. Scan path: $1, preferred subtitle language: '$locale'"
+    LANGUAGE=$locale watchexec --on-busy-update=do-nothing -f '*untitled*' -f '*.srt' -f '*.zip' \
     -w $1 ruby subhelper.rb
 }
 
