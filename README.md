@@ -51,7 +51,7 @@ Let's look at the following use-cases:
 
   As you can see above, there are already subtitles present, either in the form of `.srt` file, or within a compressed `zip` file. 
   In this case, I will start `subhelper` with `start.sh` and set the parent directory to `/Users/sasanka/Downloads/old_movies/`;  
-  Now, note that `subhelper` will not automatically perform irreversible operations without user consent, so I will `prompt` subhelper by `creating a new folder within the directory I'm interested in`, with a simple keyboard shortcut, which is `Cmd+Shift+N` and `not really do anything else`. This will "trigger" `subhelper` to scan within the directory I created the `untitled folder` in, and perform its duties, which are:
+  Now, note that `subhelper` will not automatically perform irreversible operations without user consent, so I will `prompt` subhelper by `creating a new folder within EACH directory I'm interested in`, with a simple keyboard shortcut, which is `Cmd+Shift+N` and `not really do anything else`. This will "trigger" `subhelper` to scan within the directory I created the `untitled folder` in, and perform its duties, which are:
   - automatically rename the `Eng_subs.srt` to `Memento_2000_Bluray.srt`
   - automatically scan all subdirectories within the `The Terminator 1984 1080p/` directory, find the `Terminator_1984_subs.zip`, extract it, find an `.srt` file within the extracted content, and rename it to `Terminator_1984_DvdRip_1080.srt`, and put it alongside the corresponding `Terminator_1984_DvdRip_1080.mp4` file.
   - automatically scan all subdirectories within the `citizen_kane_1941` directory, find the `english.srt` file, rename it to `citizen_kane_1941.srt` and put it alongside the `citizen_kane_1941.mp4` file.
