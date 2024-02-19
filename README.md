@@ -39,13 +39,13 @@ Let's look at the following use-cases:
 
 - `/Users/sasanka/Downloads/old_movies/The Terminator 1984 1080p/`
   - `Terminator_1984_DvdRip_1080.mp4`
-  - `/subtitles/`
+  - `subtitles/`
     - `english/`
       - `Terminator_1984_subs.zip`
 
 - `/Users/sasanka/Downloads/old_movies/citizen_kane_1941/`
   - `citizen_kane_1941.mp4`
-  - `/subs/`
+  - `subs/`
     - `free/`
       - `english.srt`
 
