@@ -7,7 +7,7 @@ Subhelper is a small program for Mac OS that will automatically find and rename 
 ### Install and running subhelper
 - Just download or clone the repository.
 - `sh start.sh` will start subhelper and prompt for necessary inputs that it requires.
-- Once started, it keeps running in a `continuous` scan for a specified `parent directory`
+- Once started, it keeps running in a `continuous` scan mode for a specified `parent directory`
 
 
 ### What can subhelper do?
