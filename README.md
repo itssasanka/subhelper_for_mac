@@ -11,12 +11,10 @@ Subhelper is a small program for Mac OS that will automatically find and rename 
 
 
 ### What can subhelper do?
-This is best explained with two example use-cases below.
-If I store all my movies in /Users/sasanka/Downloads/movies/,
+This is best explained with the example use-cases.
 
-I can run Subhelper with the parent path set to
-`/Users/sasanka/Downloads/movies/`
-And my `preferred language` set to `eng` (first 3 letters of `english`). This is used when multitple `srt` files are found and `subhelper` needs to `decide which one to pick`.
+When I run Subhelper, it prompts for a `parent directory` path, and then a `preferred language`. If I store all my movies in `/Users/sasanka/Downloads/movies/`, I can set this path to be the `parent directory` path accordingly.
+Next, `subhelper` also prompts for a `preferred language`; in my case it would be set to `eng` (first 3 letters of `english`).
 
 Let's look at the use-cases in detail:
 
