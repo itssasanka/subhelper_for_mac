@@ -16,7 +16,7 @@ This is best explained with the example use-cases.
 Upon starting `subhelper`, it prompts for a `parent directory` path, and then a `preferred language`. If I store all my movies in `/Users/sasanka/Downloads/movies/`, I can set this path to be the `parent directory` path accordingly.
 Next, `subhelper` also prompts for a `preferred language`; in my case it would be set to `eng` (first 3 letters of `english`).
 
-Let's look at the use-cases in detail:
+Let's look at the two use-cases in detail:
 
 1. I have two movies in the directory such as below: 
   - `/Users/sasanka/Downloads/movies/King Kong 2005 DvdRip/`
