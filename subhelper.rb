@@ -44,7 +44,9 @@ end
 def find_and_extract_srt_file(dir)
     # Recursively find the srt file. If multiple are found, try the one with
     # the target locale in it (ENV["LANGUAGE"])
-    LOGGER.info("Searching for srt within #{dir}/")
+    unless(@is_existing_file)
+        LOGGER.info("Searching for srt within #{dir}/")
+    end
     
     srt_files = IO.popen("find '#{dir}' -name '*.srt'").map {|f| f.chomp }
     identified_srt = nil
@@ -53,7 +55,12 @@ def find_and_extract_srt_file(dir)
         identified_srt = srt_files.first
     elsif (srt_files.size > 1)
         identified_srts = srt_files.select do |f|
-            f.downcase.include?(TARGET_LOCALE)
+            full_path = f
+            parent_dir_name = File.dirname(full_path)
+            file_name = File.basename(full_path)
+            
+            parent_dir_and_file = "#{parent_dir_name}/#{file_name}".downcase
+            parent_dir_and_file.include?(TARGET_LOCALE)
         end
 
         if(identified_srts.size > 1)
@@ -77,9 +84,7 @@ def find_and_extract_srt_file(dir)
         do_exit()
     end
 
-    if(@is_existing_file)
-        LOGGER.info("✔ Using existing srt file")    
-    else
+    unless(@is_existing_file)
         LOGGER.info("✔ Using srt file: #{identified_srt}")
     end
     system("mv '#{identified_srt}' '#{TMP_DIR}/#{RUN_ID}.srt'")
@@ -119,7 +124,7 @@ if(@is_existing_file)
     recursively_unzip_zips(base_dir)
     find_and_extract_srt_file(base_dir)
     
-    tmp_srt_file = File.join(base_dir, "tmp_subhelper_target_file.srt")
+    tmp_srt_file = File.join(base_dir, "tmp_subhelper_target_file_#{TARGET_LOCALE}.srt")
     system("mv '#{TMP_DIR}/#{RUN_ID}.srt' '#{tmp_srt_file}'")
 
     FileUtils.rm_rf(item_path)
@@ -130,7 +135,9 @@ end
 item_name = File.basename(item_path)
 
 unless([".zip", ".srt"].include?(item_ext))
-    LOGGER.info("Item #{item_path} ignored.")
+    unless item_name == "untitled folder"
+        LOGGER.info("Item #{item_path} ignored.")
+    end
     do_exit();
 end
 
