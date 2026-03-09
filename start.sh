@@ -11,8 +11,7 @@ startHelper(){
     locale=${locale:-eng}
 
     echo "Starting Subhelper. Scan path: $1, preferred subtitle language: '$locale'"
-    LANGUAGE=$locale watchexec --on-busy-update=do-nothing -f '*untitled*' -f '*.srt' -f '*.zip' \
-    -w $1 ruby subhelper.rb
+    LANGUAGE=$locale watchexec --debounce 2000ms --on-busy-update=do-nothing --emit-events-to=environment -w "$1" -- ruby subhelper.rb
 }
 
 promptForWatchPathAndStart(){
@@ -26,7 +25,7 @@ promptForWatchPathAndStart(){
         echo "${RED}Quitting program${NC}"
         exit 1
     fi
-    startHelper $watchPath
+    startHelper "$watchPath"
 }
 
 promptForInstallWatchexec(){
@@ -49,16 +48,16 @@ promptForInstallWatchexec(){
 
 mkdir -p temp/
 ## cleanup temp directory if needed
-temp_dirs_count=$(ls -d temp/ | wc -l)
+temp_dirs_count=$(find temp/ -mindepth 1 -maxdepth 1 -type d | wc -l)
 if [ "$temp_dirs_count" -gt "30" ]; then
     echo "Info: Cleaning up temp directory.."
-    rm -rf temp/**
+    rm -rf temp/*
 fi
 
 if ! [ -x "$(command -v brew)" ]; then
     echo "${RED}This program requires homebrew package manager.${NC}" >&2
     echo "${RED}Please install it first - https://brew.sh/${NC}" >&2
-    exit
+    exit 1
 fi
 
 if ! [ -x "$(command -v watchexec)" ]; then
